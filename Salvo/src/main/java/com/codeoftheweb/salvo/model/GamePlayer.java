@@ -1,5 +1,6 @@
 package com.codeoftheweb.salvo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import java.sql.Time;
 import java.util.Date;
 
 @Entity
@@ -32,6 +34,7 @@ public class GamePlayer { // Represents "a player in a particular game."
     public GamePlayer(Player player, Game game) {
         this.game = game;
         this.player = player;
+        this.joinDate = new Date();
     }
 
     public long getId() {
