@@ -23,7 +23,3 @@ dependencies {
 test {
 	useJUnitPlatform()
 }
-
-bootRun {
-	sourceResources sourceSets.main // Copy static resources into the temporary web server
-}

@@ -15,12 +15,13 @@ public class SalvoController {
     @Autowired
     private GameRepository repo;
 
-    public List<Game> getAll() {
-    return repo.findAll();
-    }
+    //public List<Game> getAll() {
 
-   // @RequestMapping("/games")
-   //public List<Object> getGames() {
-   //     return Game.getId();
-  //  }
+    //    return repo.findAll();
+    //}
+
+    @RequestMapping("/games")
+    public List<Game> getAll() {
+        return repo.findAll();
+    }
 }
