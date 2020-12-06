@@ -2,15 +2,11 @@ package com.codeoftheweb.salvo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+
+import javax.persistence.*;
 import java.sql.Time;
 import java.util.Date;
+import java.util.Set;
 
 @Entity
 public class GamePlayer { // Represents "a player in a particular game."
@@ -28,10 +24,18 @@ public class GamePlayer { // Represents "a player in a particular game."
     @JoinColumn(name="game_id")
     private Game game;
 
-    public GamePlayer() {
+    @OneToMany(mappedBy = "gamePlayer",fetch = FetchType.EAGER)
+    @OrderBy // Order ships by id
+    private Set<Ship> ships;
+
+    @OneToMany(mappedBy = "gamePlayer",fetch = FetchType.EAGER)
+    @OrderBy // Order salvoes by id
+    private Set<Salvo> salvoes;
+
+    public GamePlayer() { // Default constructor
     }
 
-    public GamePlayer(Player player, Game game) {
+    public GamePlayer(Player player, Game game) { // Constructor
         this.game = game;
         this.player = player;
         this.joinDate = new Date();
@@ -39,7 +43,7 @@ public class GamePlayer { // Represents "a player in a particular game."
 
     public long getId() {
         return id;
-    }
+    } // Getters & Setters
 
     public Date getJoinDate() {
         return joinDate;
@@ -63,5 +67,21 @@ public class GamePlayer { // Represents "a player in a particular game."
 
     public void setGame(Game game) {
         this.game = game;
+    }
+
+    public Set<Ship> getShips() {
+        return ships;
+    }
+
+    public void setShips(Set<Ship> ships) {
+        this.ships = ships;
+    }
+
+    public Set<Salvo> getSalvoes() {
+        return salvoes;
+    }
+
+    public void setSalvoes(Set<Salvo> salvoes) {
+        this.salvoes = salvoes;
     }
 }

@@ -5,7 +5,7 @@ $(function() {
   }
   // load and display JSON sent by server for /players
   function loadData() {
-    $.get("/players")
+    $.get("/rest/players")
     .done(function(data) {
       showOutput(JSON.stringify(data, null, 2));
     })
