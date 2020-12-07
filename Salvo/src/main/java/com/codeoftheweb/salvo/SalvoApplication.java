@@ -283,6 +283,9 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 				.antMatchers("/h2-console/**").permitAll()
 				.antMatchers("/api/games").permitAll();
 
+		// Enable X-Frame-Options for h2-console
+		http.headers().frameOptions().sameOrigin();
+
 		http.formLogin()
 				.usernameParameter("name") // Ruta que recibe el .js
 				.passwordParameter("pwd")

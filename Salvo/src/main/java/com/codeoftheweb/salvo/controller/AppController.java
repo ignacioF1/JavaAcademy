@@ -40,14 +40,18 @@ public class AppController {
 
     @RequestMapping(path = "/game_view/{gamePlayerId}", method = RequestMethod.GET) // Returns ony one map per player
     public ResponseEntity<Map<String, Object>> getGameView(@PathVariable long gamePlayerId, Authentication authentication) {
-    GamePlayerDTO gamePlayerDTO = new GamePlayerDTO();
-    Player player = playerRepository.findByEmail(authentication.getName());
-    if(Util.isGuest(authentication)){
-        return new ResponseEntity<>(Util.makeMap("error" , "Not Logged in"),HttpStatus.UNAUTHORIZED);
+        GamePlayerDTO gamePlayerDTO = new GamePlayerDTO();
+        Player player = playerRepository.findByEmail(authentication.getName());
+        Player gpPlayer = gamePlayerRepository.findById(gamePlayerId).get().getPlayer();
+        if (Util.isGuest(authentication)) {   // Check if guest
+            return new ResponseEntity<>(Util.makeMap("error", "Not Logged in"), HttpStatus.UNAUTHORIZED);
+        }
+        if (player.getId() == gpPlayer.getId()) {    // Check if logged in player is that gamePlayer's player
+            return new ResponseEntity<>(gamePlayerDTO.makeGameView(gamePlayerRepository.findById(gamePlayerId).orElse(null)), HttpStatus.ACCEPTED);
+        }else{
+            return new ResponseEntity<>(Util.makeMap("error", "Not the Logged in player"), HttpStatus.UNAUTHORIZED);
+        }
     }
-    return new ResponseEntity<>(gamePlayerDTO.makeGameView(gamePlayerRepository.findById(gamePlayerId).orElse(null)),HttpStatus.ACCEPTED);
-    }
-
     @RequestMapping("/leaderBoard") //
     public List<Object> getScores() {
         PlayerDTO playerDTO = new PlayerDTO();

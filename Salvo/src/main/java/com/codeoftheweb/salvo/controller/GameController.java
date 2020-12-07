@@ -57,41 +57,42 @@ import static com.codeoftheweb.salvo.repository.util.Util.makeMap;
 
     }
 
-        @RequestMapping(path = "/games", method = RequestMethod.POST)
+        @RequestMapping(path = "/games", method = RequestMethod.POST)   // Create a game
         public ResponseEntity<Object> createGame(Authentication authentication) {
-            if (Util.isGuest(authentication)) {
+            if (Util.isGuest(authentication)) {   // Check if guest
                 return new ResponseEntity<>("NO esta autorizado", HttpStatus.UNAUTHORIZED);
             }
 
             Player player = playerRepository.findByEmail(authentication.getName());
 
-            if (player == null) {
+            if (player == null) {   // Check if user exists
                 return new ResponseEntity<>("NO esta autorizado", HttpStatus.UNAUTHORIZED);
             }
 
-        Game game = gameRepository.save(new Game());
+        Game game = gameRepository.save(new Game());   // Create new game and new gamePlayer
         GamePlayer gamePlayer = gamePlayerRepository.save(new GamePlayer(player , game));
-    return new ResponseEntity<>(makeMap("gpid",gamePlayer.getId()),HttpStatus.CREATED);
+    return new ResponseEntity<>(makeMap("gpid",gamePlayer.getId()),HttpStatus.CREATED); // Returns gpid,nn
     }
 
-    @RequestMapping("/game/{idGame}/players")
+    @RequestMapping("/game/{idGame}/players")   // Join a game
     public ResponseEntity<Map<String ,Object>> JoinGame(@PathVariable long idGame, Authentication authentication){
-        if(Util.isGuest(authentication)){
+        if(Util.isGuest(authentication)){   // Check if guest
             return new ResponseEntity<>(Util.makeMap("error","Is guest"), HttpStatus.UNAUTHORIZED);
         }
-        Player player = playerRepository.findByEmail(authentication.getName());
-        Game gameToJoin = gameRepository.getOne(idGame);
-
+        Player player = playerRepository.findByEmail(authentication.getName()); // Logged in player
+        Game gameToJoin = gameRepository.findById(idGame).orElse(null);    // Brings the game with idGame provided in the path variable
         if(gameToJoin == null){ // ver si el juego existe
-            return new ResponseEntity<>(Util.makeMap("error" , "No such game."),HttpStatus.CREATED);
+            return new ResponseEntity<>(Util.makeMap("error" , "No such game."),HttpStatus.FORBIDDEN);
         }
         long gamePlayersCount = gameToJoin.getGamePlayers().size();
-
-        if(gamePlayersCount == 1){
-            GamePlayer gamePlayer = gamePlayerRepository.save(new GamePlayer(player, gameToJoin));
-            return new ResponseEntity<>(Util.makeMap("gpid" , gamePlayer.getId()),HttpStatus.CREATED);
+        if(gamePlayersCount != 1){  // Check if game has only one player
+        return new ResponseEntity<>(Util.makeMap("error" , "Game is full!"),HttpStatus.FORBIDDEN);}
+        Player firstPlayer = gameToJoin.getGamePlayers().stream().map(gp -> gp.getPlayer()).findFirst().get();  // Get the first player
+        if(player.getId() != firstPlayer.getId()){  // Check if the player is different from the first one
+            GamePlayer gamePlayer = gamePlayerRepository.save(new GamePlayer(player, gameToJoin));  // Create a new gamePlayer
+            return new ResponseEntity<>(Util.makeMap("gpid" , gamePlayer.getId()),HttpStatus.CREATED); // Returns gpid,nn
         }else{
-            return new ResponseEntity<>(Util.makeMap("error" , "Game is full!"),HttpStatus.FORBIDDEN);
+            return new ResponseEntity<>(Util.makeMap("error" , "Already member!"),HttpStatus.FORBIDDEN);    // First and second players cannot be the same
         }
 
     }

@@ -228,7 +228,7 @@ function showGamesTable(gamesData) {
             .done(function (data) {
                 console.log(data);
                 console.log("game joined");
-                gameViewUrl = "/web/game_2.html?gp=" + data.gpid;
+                gameViewUrl = "/web/game.html?gp=" + data.gpid; // Cambié game_2 por game
                 $('#gameJoinedSuccess').show("slow").delay(2000).hide("slow");
                 setTimeout(
                    function()

@@ -19,18 +19,18 @@ import org.springframework.web.bind.annotation.RestController;
     PasswordEncoder passwordEncoder;
     @Autowired
     PlayerRepository playerRepository;
-        @RequestMapping(path = "/players", method = RequestMethod.POST)
+        @RequestMapping(path = "/players", method = RequestMethod.POST) // Sing up a new player
         public ResponseEntity<Object> register(@RequestParam String email, @RequestParam String password) {
 
-            if (email.isEmpty() || password.isEmpty()) {
+            if (email.isEmpty() || password.isEmpty()) {    // Check if user name and password are not empty
                 return new ResponseEntity<>("Missing data", HttpStatus.FORBIDDEN);
             }
 
-            if (playerRepository.findByEmail(email) !=  null) {
+            if (playerRepository.findByEmail(email) !=  null) { // Check if username is not already used
                 return new ResponseEntity<>("Name already in use", HttpStatus.FORBIDDEN);
             }
 
-            playerRepository.save(new Player(null, email, passwordEncoder.encode(password)));
+            playerRepository.save(new Player(null, email, passwordEncoder.encode(password)));   // Everything ok, create a new user
             return new ResponseEntity<>(HttpStatus.CREATED);
         }
 }
