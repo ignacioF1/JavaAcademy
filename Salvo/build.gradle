@@ -20,7 +20,11 @@ dependencies {
 	// Agrego Spring Security
 	compile("org.springframework.boot:spring-boot-starter-security")
 
-	runtimeOnly 'com.h2database:h2'
+	// runtimeOnly 'com.h2database:h2' deshabilito lo h2
+	compile group: 'mysql', name: 'mysql-connector-java' // Agrego mySQL
+
+
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
