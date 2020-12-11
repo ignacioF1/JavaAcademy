@@ -38,6 +38,7 @@ public class Ship {
     }
 
     public String getType() {
+
         return type;
     }
 
@@ -57,7 +58,8 @@ public class Ship {
         return gamePlayer;
     }
 
-    public void setGamePlayer(GamePlayer gamePlayer) {
+    public Ship setGamePlayer(GamePlayer gamePlayer) {
         this.gamePlayer = gamePlayer;
+        return this;
     }
 }

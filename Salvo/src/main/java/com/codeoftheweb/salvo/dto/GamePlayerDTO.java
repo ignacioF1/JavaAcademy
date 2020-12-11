@@ -3,6 +3,7 @@ package com.codeoftheweb.salvo.dto;
 import com.codeoftheweb.salvo.model.GamePlayer;
 import com.codeoftheweb.salvo.model.Score;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -35,10 +36,13 @@ public class GamePlayerDTO {
 
     public Map<String, Object> makeGameView(GamePlayer gamePlayer) { // GameView represents a player in the game
         Map<String, Object> dto = new LinkedHashMap<>();
+        Map<String, Object> hits= new LinkedHashMap<>();
         if (gamePlayer != null) {
             ShipDTO shipDTO = new ShipDTO();
             SalvoDTO salvoDTO = new SalvoDTO();
             GamePlayerDTO gamePlayerDTO = new GamePlayerDTO();
+            hits.put("self", new ArrayList<>());
+            hits.put("opponent", new ArrayList<>());
             dto.put("id", gamePlayer.getGame().getId());
             dto.put("created", gamePlayer.getGame().getCreated());
             dto.put("gamePlayers", gamePlayer.getGame().getGamePlayers().stream().map(gamePlayer1 -> gamePlayerDTO.makeGamePlayerDto(gamePlayer1)));
@@ -48,6 +52,8 @@ public class GamePlayerDTO {
                         .stream().map(salvo -> salvoDTO.makeSalvoDto(salvo))));
             // Obtengo el juego, luego los GamePlayers, y luego los salvoes de ambos jugadores, a los que paso por el dto.
             // flatMap devuelve una sola colección con los resultados de ambas iteraciones
+            dto.put("hits",hits);
+            dto.put("gameState","PLACESHIPS");
         } else {
             dto.put("Error", "no such game");
         }

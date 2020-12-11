@@ -15,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -69,7 +70,7 @@ import static com.codeoftheweb.salvo.repository.util.Util.makeMap;
                 return new ResponseEntity<>("NO esta autorizado", HttpStatus.UNAUTHORIZED);
             }
 
-        Game game = gameRepository.save(new Game());   // Create new game and new gamePlayer
+        Game game = gameRepository.save(new Game(LocalDateTime.now()));   // Create new game and new gamePlayer
         GamePlayer gamePlayer = gamePlayerRepository.save(new GamePlayer(player , game));
     return new ResponseEntity<>(makeMap("gpid",gamePlayer.getId()),HttpStatus.CREATED); // Returns gpid,nn
     }

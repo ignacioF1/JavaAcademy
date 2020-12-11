@@ -42,6 +42,7 @@ public class Game {
     }
 
     public Game(LocalDateTime created) { //Constructor sobrecargado
+
         this.created = created;
     }
 
