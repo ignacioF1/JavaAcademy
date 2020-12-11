@@ -46,7 +46,6 @@ public class ShipController {
             return new ResponseEntity<>(Util.makeMap("error", "No such gamePlayer."), HttpStatus.FORBIDDEN);  //403
         }
         Player playerGp = gamePlayer.getPlayer();    // Player for the requested gamePlayer
-        //Player firstPlayer = game.getGamePlayers().stream().map(gp -> gp.getPlayer()).findFirst().get();  // Get the first player
         if (player.getId() != playerGp.getId()) {  // Check if the logged in player is different from that gamePlayer's player
             return new ResponseEntity<>(Util.makeMap("error", "Not that gamePlayer player!"), HttpStatus.UNAUTHORIZED);    //401
         } else {

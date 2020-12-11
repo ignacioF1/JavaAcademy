@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.Optional;
 import java.util.Set;
 
 @Entity
@@ -15,11 +16,11 @@ public class Game {
     private long id; //Atributos
     private LocalDateTime created;
 
-    @OneToMany(mappedBy="game", fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "game", fetch = FetchType.EAGER)
     @OrderBy
     private Set<GamePlayer> gamePlayers;
 
-    @OneToMany(mappedBy="game", fetch= FetchType.EAGER)
+    @OneToMany(mappedBy = "game", fetch = FetchType.EAGER)
     private Set<Score> scores;
 
     public Game() { //Constructor por defecto
@@ -57,4 +58,5 @@ public class Game {
     public void setCreated(LocalDateTime created) {
         this.created = created;
     }
+
 }

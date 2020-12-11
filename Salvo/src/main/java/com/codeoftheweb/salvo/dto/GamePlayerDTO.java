@@ -53,7 +53,8 @@ public class GamePlayerDTO {
             // Obtengo el juego, luego los GamePlayers, y luego los salvoes de ambos jugadores, a los que paso por el dto.
             // flatMap devuelve una sola colección con los resultados de ambas iteraciones
             dto.put("hits",hits);
-            dto.put("gameState","PLACESHIPS");
+            //dto.put("gameState","PLACESHIPS"); test placing ships
+            dto.put("gameState","PLAY");    // test placing salvoes
         } else {
             dto.put("Error", "no such game");
         }
