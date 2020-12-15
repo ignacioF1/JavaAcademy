@@ -60,7 +60,7 @@ public class GamePlayerDTO {
             dto.put("hits",hits);
             //dto.put("gameState","PLACESHIPS"); test placing ships
             //dto.put("gameState","PLAY");    // test firing salvoes
-            dto.put("gameState","PLAY");
+            dto.put("gameState",Util.gameState(gamePlayer));
 
 
         } else {

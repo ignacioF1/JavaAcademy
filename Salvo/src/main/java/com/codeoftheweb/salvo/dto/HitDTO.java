@@ -57,11 +57,11 @@ public class HitDTO {
 
          // Calculate number of hits per ship type per turn
         for (String currentType : List.of("carrier", "battleship", "submarine", "destroyer", "patrolboat")) {
-            damage.put(currentType + "Hits", damShipsTurn.stream().filter(ship -> ship.getType() == currentType).count());}
+            damage.put(currentType + "Hits", damShipsTurn.stream().filter(ship -> ship.getType().equals(currentType)).count());}
 
         // Calculate total number of hits per ship type
         for (String currentType : List.of("carrier", "battleship", "submarine", "destroyer", "patrolboat")) {
-         damage.put(currentType, damShips.stream().filter(ship -> ship.getType() == currentType).count());}
+         damage.put(currentType, damShips.stream().filter(ship -> ship.getType().equals(currentType)).count());}
                  return damage;
     }
 
