@@ -43,9 +43,9 @@ public class SalvoController {
         if (player.getId() != thisGpPlayer.getId()) {  // Check if the logged in player is different from that gamePlayer's player
             return new ResponseEntity<>(Util.makeMap("error", "Not that gamePlayer player!"), HttpStatus.UNAUTHORIZED);    //401
         } else {
-            if(Util.getOpponent(gamePlayer) == null){  // Check if the other player is present
+            if(Util.getOpponent(gamePlayer).getPlayer() == null){  // Check if the other player is present
                 return new ResponseEntity<>(Util.makeMap("error", "The other player is not present!"), HttpStatus.FORBIDDEN);}  //403
-            GamePlayer oponentGp = Util.getOpponent(gamePlayer).get();  // Oponent's gamePlayer
+            GamePlayer oponentGp = Util.getOpponent(gamePlayer);  // Oponent's gamePlayer
             int oponentTurn = oponentGp.getSalvoes().size();
             int thisPlTurn = gamePlayer.getSalvoes().size();
             if(thisPlTurn - oponentTurn > 0){   // If the other player has already played, do not allow

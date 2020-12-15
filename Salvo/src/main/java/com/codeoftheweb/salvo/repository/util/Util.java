@@ -19,9 +19,20 @@ public static boolean isGuest(Authentication authentication){ // Check if someon
     return authentication == null || authentication instanceof AnonymousAuthenticationToken;
 }
 
-public static Optional<GamePlayer> getOpponent(GamePlayer gamePlayer) {
+public static GamePlayer getOpponent(GamePlayer gamePlayer) {
         GamePlayer opponent = gamePlayer.getGame().getGamePlayers().stream()
-                .filter(gp -> gp.getId() != gamePlayer.getId()).findFirst().get();
-        return Optional.of(opponent);
+                .filter(gp -> gp.getId() != gamePlayer.getId()).findAny().orElse(new GamePlayer());
+        return opponent;
+    }
+
+    public static String gameState(GamePlayer gamePlayer){
+        if(gamePlayer.getShips().isEmpty()){
+            return "PLACESHIPS";
+        }
+        if(gamePlayer.getGame().getGamePlayers().size() == 1){
+            return "WAITINGFOROPP";
+        }
+
+        return "PLAY";
     }
 }

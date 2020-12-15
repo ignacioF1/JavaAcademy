@@ -2,7 +2,7 @@ package com.codeoftheweb.salvo.dto;
 
 import com.codeoftheweb.salvo.model.GamePlayer;
 import com.codeoftheweb.salvo.model.Score;
-
+import com.codeoftheweb.salvo.repository.util.Util;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -37,12 +37,17 @@ public class GamePlayerDTO {
     public Map<String, Object> makeGameView(GamePlayer gamePlayer) { // GameView represents a player in the game
         Map<String, Object> dto = new LinkedHashMap<>();
         Map<String, Object> hits= new LinkedHashMap<>();
+
         if (gamePlayer != null) {
+            HitDTO hitDTO = new HitDTO();
+            GamePlayer gpPlayer2 = Util.getOpponent(gamePlayer); // Gets player2
+                    hits.put("self", gamePlayer.getSalvoes()
+                            .stream().map(salvo -> hitDTO.makeHitDto(gamePlayer,salvo))); // Calls maheHitDto() for every salvo in player1's gamePlayer
+                    hits.put("opponent", gpPlayer2.getSalvoes()
+                            .stream().map(salvo -> hitDTO.makeHitDto(gpPlayer2,salvo))); // Calls maheHitDto() for every salvo in player2's gamePlayer
             ShipDTO shipDTO = new ShipDTO();
             SalvoDTO salvoDTO = new SalvoDTO();
             GamePlayerDTO gamePlayerDTO = new GamePlayerDTO();
-            hits.put("self", new ArrayList<>());
-            hits.put("opponent", new ArrayList<>());
             dto.put("id", gamePlayer.getGame().getId());
             dto.put("created", gamePlayer.getGame().getCreated());
             dto.put("gamePlayers", gamePlayer.getGame().getGamePlayers().stream().map(gamePlayer1 -> gamePlayerDTO.makeGamePlayerDto(gamePlayer1)));
@@ -50,11 +55,14 @@ public class GamePlayerDTO {
             dto.put("salvoes", gamePlayer.getGame().getGamePlayers()
                     .stream().flatMap(gp -> gp.getSalvoes()
                         .stream().map(salvo -> salvoDTO.makeSalvoDto(salvo))));
-            // Obtengo el juego, luego los GamePlayers, y luego los salvoes de ambos jugadores, a los que paso por el dto.
-            // flatMap devuelve una sola colección con los resultados de ambas iteraciones
+            // Obtain the game, then the gamePlayers, and then each player's salvoes, to which the dto is applied.
+            // flatMap returns a single collection with the results of both iterations
             dto.put("hits",hits);
             //dto.put("gameState","PLACESHIPS"); test placing ships
-            dto.put("gameState","PLAY");    // test placing salvoes
+            //dto.put("gameState","PLAY");    // test firing salvoes
+            dto.put("gameState","PLAY");
+
+
         } else {
             dto.put("Error", "no such game");
         }

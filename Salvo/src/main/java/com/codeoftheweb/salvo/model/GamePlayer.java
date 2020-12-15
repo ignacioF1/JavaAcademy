@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import java.sql.Time;
 import java.util.Date;
+import java.util.LinkedHashSet;
 import java.util.Set;
 
 @Entity
@@ -33,6 +34,8 @@ public class GamePlayer { // Represents "a player in a particular game."
     private Set<Salvo> salvoes;
 
     public GamePlayer() { // Default constructor
+        this.salvoes = new LinkedHashSet<>();
+        this.ships = new LinkedHashSet<>();
     }
 
     public GamePlayer(Player player, Game game) { // Constructor
