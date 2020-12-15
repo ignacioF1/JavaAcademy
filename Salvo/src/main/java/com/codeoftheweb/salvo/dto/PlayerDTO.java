@@ -29,7 +29,6 @@ public class PlayerDTO {
     public Map<String, Object> makeScoreDto(Player player) {
         Map<String, Object> dto = new LinkedHashMap<>();
         Map<String, Object> score = new LinkedHashMap<>();
-        //dto.put("gpid", player.getGamePlayers());//gamePlayerRepository.findById(gamePlayerId).orElse(null))
         dto.put("id", player.getId());
         dto.put("email", player.getEmail());
         dto.put("score", score);

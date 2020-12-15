@@ -41,10 +41,11 @@ public class GamePlayerDTO {
         if (gamePlayer != null) {
             HitDTO hitDTO = new HitDTO();
             GamePlayer gpPlayer2 = Util.getOpponent(gamePlayer); // Gets player2
-                    hits.put("self", gamePlayer.getSalvoes()
+                    hits.put("self", gpPlayer2.getSalvoes()
+                    .stream().map(salvo -> hitDTO.makeHitDto(gpPlayer2,salvo))); // Calls maheHitDto() for every salvo in player2's gamePlayer
+                    hits.put("opponent", gamePlayer.getSalvoes()
                             .stream().map(salvo -> hitDTO.makeHitDto(gamePlayer,salvo))); // Calls maheHitDto() for every salvo in player1's gamePlayer
-                    hits.put("opponent", gpPlayer2.getSalvoes()
-                            .stream().map(salvo -> hitDTO.makeHitDto(gpPlayer2,salvo))); // Calls maheHitDto() for every salvo in player2's gamePlayer
+
             ShipDTO shipDTO = new ShipDTO();
             SalvoDTO salvoDTO = new SalvoDTO();
             GamePlayerDTO gamePlayerDTO = new GamePlayerDTO();
