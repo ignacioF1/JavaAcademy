@@ -26,10 +26,11 @@ public static GamePlayer getOpponent(GamePlayer gamePlayer) {
         return opponent;
     }
 
-     
-         
+
     public static String gameState(GamePlayer gamePlayer){ // Get the game state
-    Integer numOfPlayers = gamePlayer.getGame().getGamePlayers().size();
+    long numOfPlayers = gamePlayer.getGame().getGamePlayers().size();
+    long playerSalvoCount = gamePlayer.getSalvoes().size();
+    long oppSalvoCount = getOpponent(gamePlayer).getSalvoes().size();
     HitDTO hitDTO = new HitDTO();
     long oppHitsCount = hitDTO.getHitShips(gamePlayer); // Get the total number of hits in the opponent ships
     long myHitsCount = hitDTO.getHitShips(getOpponent(gamePlayer)); // Get the total number of hits in my ships
@@ -38,13 +39,13 @@ public static GamePlayer getOpponent(GamePlayer gamePlayer) {
             return "PLACESHIPS";
         }else if( (numOfPlayers == 1) || getOpponent(gamePlayer).getShips().size() == 0 ){ // If one player still have to place ships, wait for the other
             return "WAITINGFOROPP";
-        }else if(gamePlayer.getSalvoes().size() > getOpponent(gamePlayer).getSalvoes().size()) { // If opponent has less salvoes than the player, wait state
+        }else if(playerSalvoCount > oppSalvoCount) { // If opponent has less salvoes than the player, wait state
             return "WAIT";
         }else if(myHitsCount == 17 && oppHitsCount == 17){ // 17 is the number of hits required to sink all of the ships
             return  "TIE";
-        }else if(myHitsCount == 17){
+        }else if(myHitsCount == 17 && playerSalvoCount == oppSalvoCount){
             return "LOSE";
-        }else if(oppHitsCount == 17){
+        }else if(oppHitsCount == 17 && playerSalvoCount == oppSalvoCount){
             return "WON";
         }else{
             return "PLAY";
