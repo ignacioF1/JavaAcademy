@@ -51,7 +51,7 @@ public class SalvoApplication {
 		return PasswordEncoderFactories.createDelegatingPasswordEncoder();
 	}
 
-	@Bean
+	/*@Bean
 	public CommandLineRunner initData(PlayerRepository playerRepository, GameRepository gameRepository, GamePlayerRepository gamePlayerRepository, ShipRepository shipRepository, SalvoRepository salvoRepository, ScoreRepository scoreRepository) {
 		return (args) -> {
 			Player player1 = new Player("Jack Bauer", "j.bauer@ctu.gov", passwordEncoder().encode("123"));
@@ -248,7 +248,7 @@ public class SalvoApplication {
 
 		};
 
-	}
+	}*/
 }
 
 @Configuration
