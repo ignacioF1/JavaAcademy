@@ -3,7 +3,7 @@ package com.codeoftheweb.salvo.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +15,12 @@ public class Score { // Score lists the score for each player in each game
     //Atributos
     private long id; // Database-generated id
     private double score;
-    private LocalDateTime finishDate;
+    private ZonedDateTime finishDate;
 
     public Score() { // Constructor vacío
     }
 
-    public Score(double score, LocalDateTime finishDate, Game game, Player player) {  // Constructor
+    public Score(double score, ZonedDateTime finishDate, Game game, Player player) {  // Constructor
         this.score = score;
         this.finishDate = finishDate;
         this.game = game;
@@ -43,11 +43,11 @@ public class Score { // Score lists the score for each player in each game
         this.score = score;
     }
 
-    public LocalDateTime getFinishDate() {
+    public ZonedDateTime getFinishDate() {
         return finishDate;
     }
 
-    public void setFinishDate(LocalDateTime finishDate) {
+    public void setFinishDate(ZonedDateTime finishDate) {
         this.finishDate = finishDate;
     }
 

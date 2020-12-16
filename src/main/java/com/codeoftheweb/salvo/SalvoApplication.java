@@ -35,7 +35,7 @@ import org.springframework.context.annotation.Configuration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Arrays;
 
 
@@ -59,14 +59,14 @@ public class SalvoApplication {
 			Player player3 = new Player("Kim Bauer", "kim_bauer@gmail.com", passwordEncoder().encode("123"));
 			Player player4 = new Player("Tony Almeida", "t.almeida@ctu.gov", passwordEncoder().encode("123"));
 
-			LocalDateTime time = LocalDateTime.now();
-			LocalDateTime time1 = time.plusHours(1);
-			LocalDateTime time2 = time.plusHours(2);
-			LocalDateTime time3 = time.plusHours(3);
-			LocalDateTime time4 = time.plusHours(4);
-			LocalDateTime time5 = time.plusHours(5);
-			LocalDateTime time6 = time.plusHours(6);
-			LocalDateTime time7 = time.plusHours(7);
+			ZonedDateTime time = ZonedDateTime.now();
+			ZonedDateTime time1 = time.plusHours(1);
+			ZonedDateTime time2 = time.plusHours(2);
+			ZonedDateTime time3 = time.plusHours(3);
+			ZonedDateTime time4 = time.plusHours(4);
+			ZonedDateTime time5 = time.plusHours(5);
+			ZonedDateTime time6 = time.plusHours(6);
+			ZonedDateTime time7 = time.plusHours(7);
 
 			Game game1 = new Game(time); // Now
 			Game game2 = new Game(time1); // 1 hour later

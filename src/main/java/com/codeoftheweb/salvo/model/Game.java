@@ -3,7 +3,7 @@ package com.codeoftheweb.salvo.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Set;
@@ -14,7 +14,7 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     private long id; //Atributos
-    private LocalDateTime created;
+    private ZonedDateTime created;
 
     @OneToMany(mappedBy = "game", fetch = FetchType.EAGER)
     @OrderBy
@@ -42,7 +42,7 @@ public class Game {
         this.gamePlayers = gamePlayers;
     }
 
-    public Game(LocalDateTime created) { //Constructor sobrecargado
+    public Game(ZonedDateTime created) { //Constructor sobrecargado
 
         this.created = created;
     }
@@ -51,11 +51,11 @@ public class Game {
         return id;
     }
 
-    public LocalDateTime getCreated() {
+    public ZonedDateTime getCreated() {
         return created;
     }
 
-    public void setCreated(LocalDateTime created) {
+    public void setCreated(ZonedDateTime created) {
         this.created = created;
     }
 
