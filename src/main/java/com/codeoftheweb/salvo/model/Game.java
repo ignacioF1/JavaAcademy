@@ -1,11 +1,8 @@
 package com.codeoftheweb.salvo.model;
 
 import org.hibernate.annotations.GenericGenerator;
-
 import javax.persistence.*;
 import java.time.ZonedDateTime;
-import java.util.Date;
-import java.util.Optional;
 import java.util.Set;
 
 @Entity

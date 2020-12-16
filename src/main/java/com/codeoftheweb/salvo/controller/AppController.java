@@ -7,11 +7,8 @@ import com.codeoftheweb.salvo.repository.util.Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.security.crypto.password.PasswordEncoder;
-
 import java.time.ZonedDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -47,13 +44,8 @@ public class AppController {
         }
         if (player.getId() == gpPlayer.getId()) {    // Check if logged in player is that gamePlayer's player
 
-
-
-
-
-
             GamePlayer gamePlayer = gamePlayerRepository.findById(gamePlayerId).orElse(null);
-            if(Util.gameState(gamePlayer) == "TIE") {
+            if(Util.gameState(gamePlayer).equals("TIE")) {
                 if (gamePlayer.getGame().getScores().size() < 2) {
                     Set<Score> scores = new HashSet<Score>();
                     Score score1 = new Score();
@@ -73,7 +65,7 @@ public class AppController {
 
                     gamePlayer.getGame().setScores(scores); // Save scores to that game
                 }
-            }else if(Util.gameState(gamePlayer) == "WON") {
+            }else if(Util.gameState(gamePlayer).equals("WON")) {
                 if (gamePlayer.getGame().getScores().size() < 2) {
                     Set<Score> scores = new HashSet<Score>();
                     Score score1 = new Score();
@@ -94,8 +86,6 @@ public class AppController {
                     Util.getOpponent(gamePlayer).getGame().setScores(scores); // Save scores to that game
                 }
             }
-
-
 
             return new ResponseEntity<>(gamePlayerDTO.makeGameView(gamePlayerRepository.findById(gamePlayerId).orElse(null)), HttpStatus.ACCEPTED);
         }else{

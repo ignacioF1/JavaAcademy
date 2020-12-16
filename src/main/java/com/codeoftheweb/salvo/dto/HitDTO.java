@@ -2,8 +2,6 @@ package com.codeoftheweb.salvo.dto;
 
 import com.codeoftheweb.salvo.model.*;
 import com.codeoftheweb.salvo.repository.util.Util;
-
-import java.lang.reflect.Array;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -65,7 +63,7 @@ public class HitDTO {
         List<Ship> damShipsTurn = new ArrayList<>(); // damShipsTurn stores the ships hitted in this turn only
 
         if (mySalvoes.size() != 0) {
-            Long thisTurn = mySalvoes.stream().max(Comparator.comparing(Salvo::getTurn)).get().getTurn(); // thisTurn stores the last turn number played
+            long thisTurn = mySalvoes.stream().max(Comparator.comparing(Salvo::getTurn)).get().getTurn(); // thisTurn stores the last turn number played
             salvoThisTurn = mySalvoes.stream().filter(salvo -> salvo.getTurn() == thisTurn).findFirst().get().getLocations(); // salvoThisTurn stores the locations of the salvo from the last turn
             // damShips stores the ships hitted from the beginning up to this turn
             for (String loc : allMySalvoes) {
@@ -90,4 +88,3 @@ public class HitDTO {
     }
 
 }
-

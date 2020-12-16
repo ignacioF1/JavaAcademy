@@ -1,10 +1,6 @@
 package com.codeoftheweb.salvo.dto;
 
-import com.codeoftheweb.salvo.model.Game;
-import com.codeoftheweb.salvo.model.Player;
-import com.codeoftheweb.salvo.model.Salvo;
 import com.codeoftheweb.salvo.model.Score;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 

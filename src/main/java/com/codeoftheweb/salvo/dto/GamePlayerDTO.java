@@ -1,14 +1,11 @@
 package com.codeoftheweb.salvo.dto;
 
 import com.codeoftheweb.salvo.model.GamePlayer;
-import com.codeoftheweb.salvo.model.Score;
 import com.codeoftheweb.salvo.repository.util.Util;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class GamePlayerDTO {
-
     private GamePlayer gamePlayer;
 
     public GamePlayerDTO() { // Default constructor
@@ -59,8 +56,6 @@ public class GamePlayerDTO {
             // Obtain the game, then the gamePlayers, and then each player's salvoes, to which the dto is applied.
             // flatMap returns a single collection with the results of both iterations
             dto.put("hits",hits);
-            //dto.put("gameState","PLACESHIPS"); test placing ships
-            //dto.put("gameState","PLAY");    // test firing salvoes
             dto.put("gameState",Util.gameState(gamePlayer));
 
 
