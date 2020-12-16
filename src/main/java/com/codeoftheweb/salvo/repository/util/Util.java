@@ -44,7 +44,7 @@ public static GamePlayer getOpponent(GamePlayer gamePlayer) {
         }else if(myHitsCount == 17 && oppHitsCount == 17){ // 17 is the number of hits required to sink all of the ships
             return  "TIE";
         }else if(myHitsCount == 17 && playerSalvoCount == oppSalvoCount){
-            return "LOSE";
+            return "LOST";
         }else if(oppHitsCount == 17 && playerSalvoCount == oppSalvoCount){
             return "WON";
         }else{
