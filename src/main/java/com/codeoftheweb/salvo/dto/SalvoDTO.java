@@ -1,8 +1,6 @@
 package com.codeoftheweb.salvo.dto;
 
 import com.codeoftheweb.salvo.model.Salvo;
-import com.codeoftheweb.salvo.model.Ship;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
 

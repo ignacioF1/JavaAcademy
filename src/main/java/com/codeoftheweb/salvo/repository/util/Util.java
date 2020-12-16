@@ -1,14 +1,11 @@
 package com.codeoftheweb.salvo.repository.util;
 
-
 import com.codeoftheweb.salvo.dto.HitDTO;
 import com.codeoftheweb.salvo.model.GamePlayer;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
-
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 
 public class Util {
 public static Map<String ,Object> makeMap(String key, Object value){
@@ -21,11 +18,9 @@ public static boolean isGuest(Authentication authentication){ // Check if someon
 }
 
 public static GamePlayer getOpponent(GamePlayer gamePlayer) {
-        GamePlayer opponent = gamePlayer.getGame().getGamePlayers().stream()
+        return gamePlayer.getGame().getGamePlayers().stream()
                 .filter(gp -> gp.getId() != gamePlayer.getId()).findAny().orElse(new GamePlayer());
-        return opponent;
     }
-
 
     public static String gameState(GamePlayer gamePlayer){ // Get the game state
     long numOfPlayers = gamePlayer.getGame().getGamePlayers().size();

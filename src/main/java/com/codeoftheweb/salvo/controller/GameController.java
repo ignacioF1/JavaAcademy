@@ -14,19 +14,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-
 import java.time.ZonedDateTime;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static com.codeoftheweb.salvo.repository.util.Util.makeMap;
-
 @RestController
 @RequestMapping("/api")
     public class GameController {
-
-
         @Autowired
         PlayerRepository playerRepository;
         @Autowired
@@ -61,18 +56,18 @@ import static com.codeoftheweb.salvo.repository.util.Util.makeMap;
         @RequestMapping(path = "/games", method = RequestMethod.POST)   // Create a game
         public ResponseEntity<Object> createGame(Authentication authentication) {
             if (Util.isGuest(authentication)) {   // Check if guest
-                return new ResponseEntity<>("NO esta autorizado", HttpStatus.UNAUTHORIZED);
+                return new ResponseEntity<>(Util.makeMap("error","NO esta autorizado"), HttpStatus.UNAUTHORIZED);
             }
 
             Player player = playerRepository.findByEmail(authentication.getName());
 
             if (player == null) {   // Check if user exists
-                return new ResponseEntity<>("NO esta autorizado", HttpStatus.UNAUTHORIZED);
+                return new ResponseEntity<>(Util.makeMap("error","NO esta autorizado"), HttpStatus.UNAUTHORIZED);
             }
 
         Game game = gameRepository.save(new Game(ZonedDateTime.now()));   // Create new game and new gamePlayer
         GamePlayer gamePlayer = gamePlayerRepository.save(new GamePlayer(player , game));
-    return new ResponseEntity<>(makeMap("gpid",gamePlayer.getId()),HttpStatus.CREATED); // Returns gpid,nn
+    return new ResponseEntity<>(Util.makeMap("gpid",gamePlayer.getId()),HttpStatus.CREATED); // Returns gpid,nn
     }
 
     @RequestMapping("/game/{idGame}/players")   // Join a game
